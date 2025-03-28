@@ -14,8 +14,7 @@ const urlSchema = mongoose.Schema({
 },
     {
         timestamp: true,
-    }
-);
+    });
 
 const URL = mongoose.model('url', urlSchema);
 
