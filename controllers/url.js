@@ -26,8 +26,16 @@ async function handleGetAnalytics(req, res) {
         totalClick: result.visitedHistory.length,
         analytics: result.visitedHistory,
     })
+};
+
+async function handleGetAnalytics(req, res) {
+    const shortId = req.params.shortId;
+    await URL.findOne({ shortId });
+    return 
+
 }
 
 module.exports = {
     handleGenerateNewShortURL,
+    handleGetAnalytics,
 }
