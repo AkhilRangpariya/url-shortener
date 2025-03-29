@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>user signup</title>
+    <style>
+      body {
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/user" method="POST">
+      <label for="full_name">Full Name</label>
+      <input type="text" id="full_name" required name="name" />
+      <label for="email_field">Email</label>
+      <input type="text" id="email_field" required name="email" />
+      <label for="password_field">Password</label>
+      <input type="text" id="password_field" required name="password" />
+
+      <button type="submit">Sign Up</button>
+    </form>
+  </body>
+</html>

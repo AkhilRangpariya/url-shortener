@@ -1,23 +1,26 @@
-const express = require('express');
-const router = require('./routes/url');
-const staticRoute = require('./routes/staticRouter');
-const path = require('path');
+const express = require("express");
+const path = require("path");
 
 const connectToMongoDB = require("./dbConnection");
-const URL = require('./models/url');
+const URL = require("./models/url");
+
+const urlRoute = require("./routes/url");
+const staticRoute = require("./routes/staticRouter");
+const userRoute = require("./routes/user");
 
 const app = express();
 const PORT = 8001;
-
 
 connectToMongoDB("mongodb://localhost:2701/short-url");
 
 // for json and form data can handle by the express
 app.use(express.json());
-app.use(express.urlencoded({ extended: false, }));
+app.use(express.urlencoded({ extended: false }));
 
-app.use("/url", router);
+app.use("/url", urlRoute);
 app.use("/", staticRoute);
+app.use("/user", userRoute);
+
 // for EJS server side rendering SSR
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
@@ -56,7 +59,6 @@ app.get("/:shortId", async (req, res) => {
     );
 
     res.redirect(entry.redirectURL);
-})
+});
 
-app.listen(PORT, () => console.log(`Server Started listening on ${PORT} `))
-
+app.listen(PORT, () => console.log(`Server Started listening on ${PORT} `));
