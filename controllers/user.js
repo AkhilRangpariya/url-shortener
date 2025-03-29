@@ -1,4 +1,6 @@
+const { v4: uuidv4 } = require('uuid');
 const User = require("../models/user");
+const { setUser } = require('../service/auth');
 
 async function handleUserSignup(req, res) {
     const { name, email, password } = req.body;
@@ -21,6 +23,11 @@ async function handleUserLogin(req, res) {
             error: "Invalid Username or Password",
         });
     }
+
+    // create uniq session id & store in map wit user & res as cookies set 
+    const sessionId = uuidv4();
+    setUser(sessionId, user);
+    res.cookies("uid", sessionId);
     return res.redirect("/");
 
 }
