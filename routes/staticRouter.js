@@ -1,7 +1,7 @@
 const express = require("express");
 const URL = require("../models/url");
 
-const router = express.router();
+const router = express.Router();
 
 router.get("/", async (req, res) => {
     if (!req.user) return res.redirect("/login");
