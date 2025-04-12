@@ -1,5 +1,6 @@
 const sessionIdToUserMap = new Map();
 
+// for state-full storage of data   
 function setUser(id, user) {
     sessionIdToUserMap.set(id, user);
 }
