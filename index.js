@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require('cookie-parser')
 
-const { restrictToLoggedinUserOnly, checkAuth } = require("./middleware/auth")
+const { checkForAuthentication, restrictTo } = require("./middleware/auth")
 const connectToMongoDB = require("./dbConnection");
 const URL = require("./models/url");
 
@@ -20,11 +20,14 @@ connectToMongoDB("mongodb://localhost:2701/short-url");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(checkForAuthentication);
 
 // inline middleware are added 
-app.use("/url", restrictToLoggedinUserOnly, urlRoute);
-app.use("/", checkAuth, staticRoute);
-app.use("/user", restrictToLoggedinUserOnly, userRoute);
+// app.use("/url", restrictToLoggedinUserOnly, urlRoute);
+// restricted only normal user 
+app.use("/url", restrictTo(['NORMAL']), urlRoute);
+app.use("/user", userRoute);
+app.use("/", staticRoute);
 
 // for EJS server side rendering SSR
 app.set("view engine", "ejs");
